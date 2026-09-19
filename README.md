@@ -185,7 +185,10 @@ http://127.0.0.1:8000/
 
 ## 🎥 Project Demo
 
-[Watch Video](./Video Project 3.mp4)
+[▶️ Watch the ShopKart Demo](./demo.mp4)
+
+You can also open the video directly here:
+[demo.mp4](https://github.com/saurav7545/shopcart/blob/main/demo.mp4)
 
 ## 🧪 Testing
 
