@@ -185,7 +185,7 @@ http://127.0.0.1:8000/
 
 ## 🎥 Project Demo
 
-[Watch Video](.Video Project 3.mp4)
+[Watch Video](./Video Project 3.mp4)
 
 ## 🧪 Testing
 
