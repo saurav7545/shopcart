@@ -1,0 +1,84 @@
+<!-- Category Icon Bar -->
+ <style>
+    .category-bar {
+    background: white;
+    border-bottom: 1px solid #ddd;
+    height: 80px;
+}
+
+.category-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    overflow-x: auto;
+    gap: 10px;
+}
+
+.category-item {
+    text-decoration: none;
+    color: #212121;
+    text-align: center;
+    min-width: 80px;
+    line-height: 1;
+}
+
+.category-icon {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.category-item span {
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+ </style>
+
+<div class="category-bar shadow-sm">
+
+    <div class="container">
+
+        <div class="category-list">
+
+            <a href="#" class="category-item">
+                <div class="category-icon">🏷️</div>
+                <span>Top Offers</span>
+            </a>
+
+            <a href="{% url 'category' 'mobile' %}" class="category-item">
+                <div class="category-icon">📱</div>
+                <span>Mobiles</span>
+            </a>
+
+            <a href="{% url 'category' 'fashion' %}" class="category-item">
+                <div class="category-icon">👕</div>
+                <span>Fashion</span>
+            </a>
+
+            <a href="{% url 'category' 'laptop' %}" class="category-item">
+                <div class="category-icon">💻</div>
+                <span>Laptop</span>
+            </a>
+
+            <a href="{% url 'category' 'home' %}" class="category-item">
+                <div class="category-icon">🏠</div>
+                <span>Home</span>
+            </a>
+
+            <a href="{% url 'category' 'grocery' %}" class="category-item">
+                <div class="category-icon">🛒</div>
+                <span>Grocery</span>
+            </a>
+
+
+            <a href="{% url 'category' 'beauty' %}" class="category-item">
+                <div class="category-icon">🎁</div>
+                <span>Beauty</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

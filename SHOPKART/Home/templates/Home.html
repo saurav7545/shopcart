@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block title %}
+ShopKart | Home
+{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO BANNER ================= -->
+
+<div class="bg-primary text-white py-5 mb-4" style="background: linear-gradient(135deg, #2874f0 0%, #1a5fd1 100%);">
+    <div class="container text-center py-5">
+        <h1 class="display-4 fw-bold mb-3">ShopKart</h1>
+        <p class="lead mb-4">Shop the latest gadgets, fashion, home essentials and more at unbeatable prices.</p>
+        <a href="{% url 'search' %}?q=best+sellers" class="btn btn-light btn-lg px-5 py-3 fw-bold">Shop Now</a>
+    </div>
+</div>
+
+<!-- ================= CATEGORIES ================= -->
+
+<div class="container mb-4">
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-6 col-md-4 col-lg-2 mb-3">
+            <a href="{% url 'category' category.slug %}" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 text-center py-4 hover-shadow transition-all">
+                    <div class="card-body">
+                        <div class="display-4 mb-2">
+                            {% if category.slug == "mobile" %}📱{% elif category.slug == "fashion" %}👕{% elif category.slug == "laptop" %}💻{% elif category.slug == "home" %}🏠{% elif category.slug == "grocery" %}🛒{% elif category.slug == "beauty" %}🎁{% else %}🏷️{% endif %}
+                        </div>
+                        <h6 class="mb-0">{{ category.name }}</h6>
+                        <small class="text-muted">Explore</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- ================= BEST SELLERS ================= -->
+
+<div class="container mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">🔥 Best Sellers</h3>
+        <a href="{% url 'search' %}?q=popular" class="btn btn-outline-primary">View All</a>
+    </div>
+    <div class="row">
+        {% for product in best_sellers %}
+        <div class="col-6 col-md-3 mb-3">
+            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-shadow transition-all">
+                    <div class="card-body p-2">
+                        {% if product.image %}
+                        <img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}" style="height:140px; object-fit:contain;">
+                        {% else %}
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height:140px;">
+                            <span class="text-muted fs-1">📦</span>
+                        </div>
+                        {% endif %}
+                        <div class="card-body p-2">
+                            <h6 class="mb-1 small text-truncate">{{ product.name }}</h6>
+                            <p class="mb-0 small">
+                                <strong class="text-success">₹{{ product.price }}</strong>
+                                {% if product.old_price %}
+                                <small class="text-muted text-decoration-line-through">₹{{ product.old_price }}</small>
+                                {% endif %}
+                            </p>
+                            <small class="text-warning">⭐ {{ product.rating }}/5</small>
+                            {% if product.discount > 0 %}
+                            <span class="badge bg-success small">{{ product.discount }}% off</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- ================= FEATURED PRODUCTS ================= -->
+
+<div class="container mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">✨ Featured Products</h3>
+        <a href="{% url 'search' %}?q=trending" class="btn btn-outline-primary">View All</a>
+    </div>
+    <div class="row">
+        {% for product in featured_products %}
+        <div class="col-6 col-md-3 mb-3">
+            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-shadow transition-all">
+                    <div class="card-body p-2">
+                        {% if product.image %}
+                        <img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}" style="height:140px; object-fit:contain;">
+                        {% else %}
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height:140px;">
+                            <span class="text-muted fs-1">📦</span>
+                        </div>
+                        {% endif %}
+                        <div class="card-body p-2">
+                            <h6 class="mb-1 small text-truncate">{{ product.name }}</h6>
+                            <p class="mb-0 small">
+                                <strong class="text-success">₹{{ product.price }}</strong>
+                                {% if product.old_price %}
+                                <small class="text-muted text-decoration-line-through">₹{{ product.old_price }}</small>
+                                {% endif %}
+                            </p>
+                            <small class="text-warning">⭐ {{ product.rating }}/5</small>
+                            {% if product.discount > 0 %}
+                            <span class="badge bg-success small">{{ product.discount }}% off</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- ================= TOP CATEGORIES DEAL ================= -->
+
+<div class="container mb-4">
+    <h3 class="fw-bold mb-3">🏷️ Shop by Category Deals</h3>
+    <div class="row g-3">
+        {% for category in categories %}
+        <div class="col-6 col-md-4">
+            <a href="{% url 'category' category.slug %}" class="text-decoration-none">
+                <div class="card text-white text-center py-4 h-100" style="background: linear-gradient(135deg, #2874f0 0%, #1a5fd1 100%);">
+                    <div class="card-body">
+                        <div class="display-4 mb-2">
+                            {% if category.slug == "mobile" %}📱{% elif category.slug == "fashion" %}👕{% elif category.slug == "laptop" %}💻{% elif category.slug == "home" %}🏠{% elif category.slug == "grocery" %}🛒{% elif category.slug == "beauty" %}🎁{% endif %}
+                        </div>
+                        <h5 class="fw-bold">{{ category.name }}</h5>
+                        <small>Shop Now →</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- ================= NEW ARRIVALS ================= -->
+
+<div class="container mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">🆕 New Arrivals</h3>
+        <a href="{% url 'search' %}" class="btn btn-outline-primary">View All</a>
+    </div>
+    <div class="row">
+        {% for product in new_products %}
+        <div class="col-6 col-md-3 mb-3">
+            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-shadow transition-all">
+                    <div class="card-body p-2">
+                        {% if product.image %}
+                        <img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}" style="height:140px; object-fit:contain;">
+                        {% else %}
+                        <div class="bg-light d-flex align-items-center justify-content-center" style="height:140px;">
+                            <span class="text-muted fs-1">📦</span>
+                        </div>
+                        {% endif %}
+                        <div class="card-body p-2">
+                            <h6 class="mb-1 small text-truncate">{{ product.name }}</h6>
+                            <p class="mb-0 small">
+                                <strong class="text-success">₹{{ product.price }}</strong>
+                                {% if product.old_price %}
+                                <small class="text-muted text-decoration-line-through">₹{{ product.old_price }}</small>
+                                {% endif %}
+                            </p>
+                            <small class="text-warning">⭐ {{ product.rating }}/5</small>
+                            {% if product.discount > 0 %}
+                            <span class="badge bg-success small">{{ product.discount }}% off</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- ================= RECENTLY VIEWED ================= -->
+{% if recently_viewed %}
+<div class="container mb-4">
+    <h3 class="fw-bold mb-3">👁️ Recently Viewed</h3>
+    <div class="row">
+        {% for product in recently_viewed %}
+        <div class="col-6 col-md-3 mb-3">
+            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                <div class="card border-0 shadow-sm h-100 hover-shadow transition-all">
+                    <div class="card-body p-2">
+                        {% if product.image %}
+                        <img src="{{ product.image }}" class="card-img-top" alt="{{ product.name }}" style="height:140px; object-fit:contain;">
+                        {% endif %}
+                        <div class="card-body p-2">
+                            <h6 class="mb-1 small text-truncate">{{ product.name }}</h6>
+                            <p class="mb-0 small"><strong class="text-success">₹{{ product.price }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+    }
+    .transition-all {
+        transition: all 0.25s ease;
+    }
+</style>
+{% endblock %}

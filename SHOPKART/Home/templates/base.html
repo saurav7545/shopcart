@@ -1,0 +1,362 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        ShopKart
+        {% endblock %}
+    </title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Custom CSS -->
+    <link
+        rel="stylesheet"
+        href="{% static 'home/css/style.css' %}"
+    >
+    <style>
+        .cart-link {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.cart-count {
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 1px;
+    position: relative;
+    top: -5px;
+}
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar navbar-expand-lg bg-primary">
+
+        <div class="container">
+
+            <!-- Logo -->
+            <a
+                class="navbar-brand text-white fw-bold"
+                href="{% url 'home' %}"
+            >
+                ShopKart
+            </a>
+
+
+            <!-- Mobile Toggle -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <!-- Navbar Content -->
+            <div
+                class="collapse navbar-collapse"
+                id="navbarMenu"
+            >
+
+                <!-- Search -->
+                <form
+                    class="d-flex mx-auto"
+                    style="width: 50%;"
+                    method="GET"
+                    action="{% url 'search' %}"
+                >
+
+                    <input
+                        class="form-control"
+                        type="search"
+                        name="q"
+                        placeholder="Search products..."
+                        aria-label="Search"
+                        value="{{request.GET.q}}"
+                    >
+
+                    <button
+                        class="btn btn-light ms-2"
+                        type="submit"
+                    >
+                        Search
+                    </button>
+
+                </form>
+
+
+                <!-- Right Menu -->
+                <ul class="navbar-nav ms-auto align-items-center">
+
+
+                    <!-- Login -->
+                   <!-- ================= USER AUTH ================= -->
+
+{% if user.is_authenticated %}
+
+<!-- Username -->
+
+<li class="nav-item">
+
+    <span class="nav-link text-white">
+
+        👤 Hi, {{ user.username }}
+
+    </span>
+
+</li>
+
+
+<!-- Logout -->
+
+<li class="nav-item">
+
+    <a
+        class="nav-link text-white"
+        href="{% url 'logout' %}"
+    >
+
+        Logout
+
+    </a>
+
+</li>
+
+{% else %}
+
+<!-- Login -->
+
+<li class="nav-item">
+
+    <a
+        class="nav-link text-white"
+        href="{% url 'login' %}"
+    >
+
+        Login
+
+    </a>
+
+</li>
+
+
+<!-- Register -->
+
+<li class="nav-item">
+
+    <a
+        class="nav-link text-white"
+        href="{% url 'register' %}"
+    >
+
+        Register
+
+    </a>
+
+</li>
+
+{% endif %}
+
+
+                    <!-- More Dropdown -->
+                    <li class="nav-item dropdown">
+
+                        <a
+                            class="nav-link dropdown-toggle text-white"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            More
+                        </a>
+
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li class="nav-item">
+
+                                <a
+                                    class="nav-link text-white"
+                                    href="{% url 'profile' %}"
+                                >
+                                    Profile
+                                </a>
+                            
+                            </li>
+                            
+                            
+                            <li class="nav-item">
+                            
+                                <a
+                                    class="nav-link text-white"
+                                    href="{% url 'wishlist' %}"
+                                >
+                                    ❤️ Wishlist
+                                </a>
+                            
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link text-white"
+                                    href="{% url 'my_orders' %}"
+                                >
+                                    📦My Orders
+                                </a>
+                            </li>
+
+
+                         
+
+
+                            <li>
+
+                                <hr class="dropdown-divider">
+
+                            </li>
+
+
+                            <li>
+
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                >
+                                    Help & Support
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
+
+
+                    <!-- ================= CART ================= -->
+
+                    <li class="nav-item">
+
+                        <a
+                            href="{% url 'cart' %}"
+                            class="nav-link text-white cart-link"
+                        >
+                    
+                            🛒
+                    
+                            {% if cart_count > 0 %}
+                                <sup class="cart-count">
+                                    {{ cart_count }}
+                                </sup>
+                            {% endif %}
+                    
+                            Cart
+                    
+                        </a>
+                    
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= ICON / CATEGORY BAR ================= -->
+
+    {% include "icon.html" %}
+
+
+    <!-- ================= MESSAGES ================= -->
+
+    {% if messages %}
+
+        <div class="container mt-3">
+
+            {% for message in messages %}
+
+                <div class="alert alert-info">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ================= PAGE CONTENT ================= -->
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <!-- ================= CUSTOM BLOCKS ================= -->
+
+    {% block sam %}
+
+    {% endblock %}
+
+
+    {% block ram %}
+
+    {% endblock %}
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+
+        <div class="container">
+
+            <p class="mb-0">
+
+                © 2026 ShopKart. All Rights Reserved.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

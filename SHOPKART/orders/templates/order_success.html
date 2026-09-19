@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-5 text-center">
+
+    <div class="card shadow-sm p-5">
+
+        <h1 class="text-success">
+            ✅ Order Placed Successfully!
+        </h1>
+
+        <p class="mt-3">
+            Thank you for shopping with ShopKart.
+        </p>
+
+        <h4>
+            Order #{{ order.id }}
+        </h4>
+
+        <p>
+            Total Amount:
+            <strong>₹{{ order.total_amount }}</strong>
+        </p>
+
+        <p>
+            Status:
+            <strong>{{ order.get_status_display }}</strong>
+        </p>
+
+        <p>
+            Payment:
+            {% if order.payment_method == "cod" %}💵 Cash on Delivery{% elif order.payment_method == "credit_card" %}💳 Credit/Debit Card{% elif order.payment_method == "upi" %}📱 UPI{% elif order.payment_method == "net_bank" %}🏦 Net Banking{% endif %}
+        </p>
+
+        <div class="mt-4">
+
+            <a
+                href="{% url 'home' %}"
+                class="btn btn-primary me-2"
+            >
+                Continue Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

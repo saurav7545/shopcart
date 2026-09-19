@@ -1,0 +1,46 @@
+<div class="card h-100">
+
+    <img
+        src="{{ product.image }}"
+        class="card-img-top"
+        alt="{{ product.name }}"
+        style="height:220px; object-fit:contain;"
+    >
+
+    <div class="card-body">
+
+        <h5 class="card-title">
+            {{ product.title }}
+        </h5>
+
+        <p class="card-text">
+            {{ product.description }}
+        </p>
+
+        <h5>
+            ₹{{ product.price }}
+        </h5>
+
+        <p>
+            <del>{% if product.old_price is not None %}₹{{ product.old_price }}{% endif %}</del>
+            ⭐ {{ product.rating }}
+        </p>
+
+        <p>
+            {{ product.category }}
+        </p>
+        <p>
+        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary w-100 mb-2">
+            Add to Cart
+        </a>
+        <a href="{% url 'buy_now' product.id %}" class="btn btn-danger w-100">
+            ⚡ Buy Now
+        </a>
+    </p>
+        <a href="{% url 'product_detail' product.id %}" class="btn btn-primary w-100">
+            View Product
+        </a>
+
+    </div>
+
+</div>

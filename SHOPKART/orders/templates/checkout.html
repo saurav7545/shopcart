@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}
+Checkout | ShopKart
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+
+    <h2 class="mb-4">Checkout</h2>
+
+    <div class="row">
+
+        <div class="col-md-7">
+
+            <div class="card mb-4">
+
+                <div class="card-header">
+                    <h5 class="mb-0">📍 Delivery Address</h5>
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input
+                                type="text"
+                                name="full_name"
+                                class="form-control"
+                                value="{{ request.user.get_full_name }}"
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input
+                                type="tel"
+                                name="phone"
+                                class="form-control"
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea
+                                name="address"
+                                class="form-control"
+                                rows="3"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">City</label>
+                                <input
+                                    type="text"
+                                    name="city"
+                                    class="form-control"
+                                    required
+                                >
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">State</label>
+                                <input
+                                    type="text"
+                                    name="state"
+                                    class="form-control"
+                                    required
+                                >
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Pincode</label>
+                                <input
+                                    type="text"
+                                    name="pincode"
+                                    class="form-control"
+                                    required
+                                >
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-warning w-100"
+                        >
+                            Place Order
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- Payment Method -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">💳 Payment Method</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-check form-check-card">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="payment_method"
+                                    id="pay_cod"
+                                    value="cod"
+                                    checked
+                                >
+                                <label class="form-check-label" for="pay_cod">
+                                    <strong>💵 Cash on Delivery</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-check-card">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="payment_method"
+                                    id="pay_card"
+                                    value="credit_card"
+                                >
+                                <label class="form-check-label" for="pay_card">
+                                    <strong>💳 Credit/Debit Card</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-check-card">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="payment_method"
+                                    id="pay_upi"
+                                    value="upi"
+                                >
+                                <label class="form-check-label" for="pay_upi">
+                                    <strong>📱 UPI</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-check-card">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="payment_method"
+                                    id="pay_netbank"
+                                    value="net_bank"
+                                >
+                                <label class="form-check-label" for="pay_netbank">
+                                    <strong>🏦 Net Banking</strong>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Order Summary -->
+        <div class="col-md-5">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h5 class="mb-0">🛒 Order Summary</h5>
+                </div>
+
+                <div class="card-body">
+
+                    {% for item in items %}
+
+                        <div class="d-flex justify-content-between mb-3">
+
+                            <div>
+                                <strong>
+                                    {{ item.product.name }}
+                                </strong>
+
+                                <br>
+
+                                <small class="text-muted">
+                                    Qty: {{ item.quantity }}
+                                </small>
+                            </div>
+
+                            <span>
+                                ₹{{ item.product.price|floatformat:2 }}
+                            </span>
+
+                        </div>
+
+                    {% endfor %}
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+                        <strong>Subtotal</strong>
+
+                        <strong>
+                            ₹{{ total|floatformat:2 }}
+                        </strong>
+                    </div>
+
+                    {% if coupon %}
+                    <div class="d-flex justify-content-between text-success">
+                        <strong>Discount ({{ coupon.discount_percent }}%)</strong>
+                        <strong>- ₹{{ discount_amount|floatformat:2 }}</strong>
+                    </div>
+                    {% endif %}
+
+                    <div class="d-flex justify-content-between mt-2">
+                        <strong>Delivery</strong>
+                        <span class="text-success">FREE</span>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+                        <strong>Total</strong>
+
+                        <strong>
+                            ₹{{ total|floatformat:2 }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+<div class="container mb-3">
+
+    <label>
+        Coupon Code
+    </label>
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="coupon_code"
+            class="form-control"
+            placeholder="Enter coupon"
+        >
+
+    </div>
+
+</div>
+
+<style>
+    .form-check-card {
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 12px 16px;
+        cursor: pointer;
+        transition: border-color 0.2s;
+    }
+    .form-check-card:hover {
+        border-color: #2874f0;
+    }
+    .form-check-input:checked ~ .form-check-label {
+        color: #2874f0;
+    }
+    .form-check-input {
+        margin-top: 4px;
+    }
+</style>
