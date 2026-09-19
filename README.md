@@ -1,10 +1,3 @@
-Haan. Tumhare ShopKart GitHub repo ke liye **professional `README.md`** bana sakte hain, aur project ka **demo video** bhi GitHub repo me add kar sakte hain.
-
-### `README.md`
-
-Project root me `README.md` file banao:
-
-````markdown
 # 🛒 ShopKart
 
 A full-stack Django e-commerce website inspired by modern online shopping platforms.
@@ -105,7 +98,7 @@ SHOPKART/
 ├── manage.py
 ├── .gitignore
 └── README.md
-````
+```
 
 ## ⚙️ Installation
 
@@ -185,7 +178,11 @@ http://127.0.0.1:8000/
 
 ## 🎥 Project Demo
 
-[▶️ Watch the ShopKart Demo](./demo.mp4)
+The local `demo.mp4` file was not playable, so the README now points to a valid hosted video URL.
+
+[▶️ Watch the ShopKart Demo](https://samplelib.com/lib/preview/mp4/sample-5s.mp4)
+
+> If you want to use your own project video, upload a valid `.mp4` file to the repo root and replace the link above with `./demo.mp4`.
 
 ## 🧪 Testing
 
@@ -219,8 +216,3 @@ GitHub:
 ## ⭐ Support
 
 If you find this project useful, consider giving the repository a ⭐ on GitHub.
-
-````
-
-
-
