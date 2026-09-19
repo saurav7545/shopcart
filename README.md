@@ -185,7 +185,11 @@ http://127.0.0.1:8000/
 
 ## 🎥 Project Demo
 
-A demo video of ShopKart is available in this repository.
+<h2>🎥 ShopKart Demo</h2>
+
+<video src="Video Project 3.mp4" controls width="800">
+  Your browser does not support the video tag.
+</video>
 
 ## 🧪 Testing
 
