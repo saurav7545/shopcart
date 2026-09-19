@@ -185,7 +185,7 @@ http://127.0.0.1:8000/
 
 ## 🎥 Project Demo
 
-A demo video of ShopKart is available in this repository.
+[▶️ Watch the ShopKart Demo](./demo.mp4)
 
 ## 🧪 Testing
 
